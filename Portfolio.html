@@ -1,0 +1,1637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addie Patterson | Aspiring Park Engineer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #2a5599;
+            --secondary: #ff6b6b;
+            --accent: #ffd93d;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 1rem 0;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Page Sections */
+        .page {
+            display: none;
+            min-height: 100vh;
+            padding: 100px 2rem 4rem;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Home Page */
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .hero h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 400;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 2rem auto;
+            color: #555;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 2rem 0;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--gradient);
+            color: white;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Featured Projects */
+        .featured-projects {
+            margin: 4rem 0;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 0;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* About Page */
+        .about-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .about-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: var(--gradient);
+            margin: 2rem auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+        }
+
+        .bio {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin: 2rem 0;
+        }
+
+        .info-box {
+            background: var(--light);
+            padding: 2rem;
+            border-radius: 0;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary);
+        }
+
+        .info-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .fun-facts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .fact-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Wide Image Tiles for About Section */
+        .wide-tile {
+            display: flex;
+            align-items: center;
+            background: white;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 3rem 0;
+            min-height: 300px;
+        }
+
+        .wide-tile.reverse {
+            flex-direction: row-reverse;
+        }
+
+        .tile-image {
+            flex: 1;
+            background: var(--gradient);
+            overflow: hidden;
+        }
+
+        .tile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .tile-content {
+            flex: 1;
+            padding: 3rem;
+        }
+
+        .tile-content h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+
+        .tile-content p {
+            line-height: 1.8;
+            margin: 1rem 0;
+        }
+
+        .tile-content strong {
+            color: var(--primary);
+            display: block;
+            margin-top: 1.5rem;
+        }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 3rem 0;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 1rem 2rem;
+            background: white;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .tab-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @media (max-width: 768px) {
+            .wide-tile, .wide-tile.reverse {
+                flex-direction: column;
+            }
+            
+            .tile-image {
+                width: 100%;
+                min-height: 200px;
+            }
+
+            .tab-navigation {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .tab-btn {
+                width: 100%;
+            }
+        }
+
+        /* Skills Page */
+        .skills-category {
+            margin: 3rem 0;
+        }
+
+        .skills-category h2 {
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .skill-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .skill-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Projects Hub */
+        .projects-hub {
+            margin: 2rem 0;
+        }
+
+        .projects-hub h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+        }
+
+        /* Project Detail Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            overflow-y: auto;
+            padding: 2rem;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 0;
+            max-width: 900px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.4s;
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem;
+            border-radius: 0;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 2rem;
+            color: white;
+            cursor: pointer;
+            background: rgba(0,0,0,0.3);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+            padding: 1rem;
+            background: var(--light);
+            border-radius: 0;
+        }
+
+        .meta-item {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .meta-item strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .section {
+            margin: 2rem 0;
+        }
+
+        .section h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        /* Resume Page */
+        .resume-container {
+            text-align: center;
+        }
+
+        .resume-container h1 {
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .resume-embed {
+            width: 100%;
+            height: 800px;
+            border: 2px solid var(--light);
+            border-radius: 0;
+            margin: 2rem 0;
+        }
+
+        /* Contact Page */
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-container h1 {
+            text-align: center;
+            color: var(--primary);
+            margin-bottom: 2rem;
+        }
+
+        .contact-info {
+            background: white;
+            padding: 2rem;
+            border-radius: 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-bottom: 1px solid var(--light);
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin: 1.5rem 0;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid var(--light);
+            border-radius: 0;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Leadership Page */
+        .timeline {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            background: white;
+            padding: 2rem;
+            border-radius: 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin: 2rem 0;
+            position: relative;
+            padding-left: 3rem;
+        }
+
+        .timeline-item::before {
+            content: '⭐';
+            position: absolute;
+            left: 1rem;
+            top: 2rem;
+            font-size: 1.5rem;
+        }
+
+        .timeline-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .modal-content {
+                margin: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#" data-page="home">Home</a></li>
+            <li><a href="#" data-page="about">About</a></li>
+            <li><a href="#" data-page="work">Work Experience</a></li>
+            <li><a href="#" data-page="projects">Projects</a></li>
+            <li><a href="#" data-page="resume">Resume</a></li>
+        </ul>
+    </nav>
+
+    <!-- Home Page -->
+    <div class="page active" id="home">
+        <div class="container">
+            <div class="hero">
+                <h1>Addie Patterson</h1>
+                <h2>Aspring Theme Park Engineer & Creative Problem Solver</h2>
+                <p>Aspiring Theme Park Engineer and Innovative Problem Solver blending creativity with engineering to build immersive experiences that bring joy and wonder to life.</p>
+                
+                <div class="cta-buttons">
+                    <a href="#" data-page="projects" class="btn btn-primary">View Work</a>
+                    <a href="#" data-page="about" class="btn btn-secondary">About Me</a>
+                    <a href="#" data-page="resume" class="btn btn-secondary">Resume</a>
+                    <a href="#" data-page="contact" class="btn btn-secondary">Contact</a>
+                </div>
+            </div>
+
+            <div class="featured-projects">
+                <h2 style="text-align: center; color: var(--primary); font-size: 2rem; margin-bottom: 1rem;">Featured Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-card" data-project="blue-box">
+                        <div class="project-image">🎮</div>
+                        <div class="project-content">
+                            <h3>Blue Box Capstone</h3>
+                            <p>Senior capstone project developing an innovative gaming experience</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="pong-fpga">
+                        <div class="project-image">🕹️</div>
+                        <div class="project-content">
+                            <h3>Pong FPGA Game</h3>
+                            <p>Classic game reimagined with FPGA hardware design</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="olympics-robot">
+                        <div class="project-image">🤖</div>
+                        <div class="project-content">
+                            <h3>Olympics Robot</h3>
+                            <p>Competitive robotics project showcasing autonomous systems</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Page -->
+    <div class="page" id="about">
+        <div class="container">
+            <div class="about-section">
+                <div class="about-header">
+                    <h1>About Me</h1>
+                    <div class="avatar">AP</div>
+                </div>
+
+                <div class="bio">
+                    <p>My journey into engineering began with a simple fascination: How do theme parks create magic? Behind every thrilling ride, immersive environment, and moment of wonder lies brilliant engineering, creative problem-solving, and meticulous attention to detail.</p>
+                    
+                    <p>As a dual-major student at Rose-Hulman Institute of Technology studying Mechanical Engineering and Computer Engineering with a minor in Robotics, I've spent years building the technical foundation to turn imagination into reality. But more importantly, I've learned to think like a storyteller—to see engineering not just as solving problems, but as crafting experiences that move people.</p>
+                    
+                    <p>Whether I'm programming FPGAs, designing mechanical systems, or building autonomous robots, I approach every project with the same question: How can this create joy, wonder, or accessibility for others?</p>
+                </div>
+
+                <!-- Tab Navigation -->
+                <div class="tab-navigation">
+                    <button class="tab-btn active" data-tab="education">Education</button>
+                    <button class="tab-btn" data-tab="courses">Relevant Courses</button>
+                    <button class="tab-btn" data-tab="extracurriculars">Extracurriculars</button>
+                    <button class="tab-btn" data-tab="leadership">Leadership</button>
+                    <button class="tab-btn" data-tab="interests">Interests & Values</button>
+                </div>
+
+                <!-- Education Tab -->
+                <div class="tab-content active" id="education-tab">
+                    <h2 style="text-align: center; color: var(--primary); margin: 3rem 0 2rem; font-size: 2rem;">Educational Journey</h2>
+                    
+                    <div class="wide-tile">
+                        <div class="tile-image"><img src="RHIT.png" alt="Rose-Hulman Bonfire" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="tile-content">
+                            <h3>Rose-Hulman Institute of Technology</h3>
+                            <p><strong>August 2024 - Present</strong></p>
+                            <p><strong>Bachelor of Science in Computer Engineering</strong></p>
+                            <p><strong>Bachelor of Science in Mechanical Engineering</strong></p>
+                            <p><strong>Master of Science in Engineering Management</strong></p>
+                            <p><strong>Minors:</strong> Robotics, Systems Engineering</p>
+                            <p style="margin-top: 1rem;">At Rose-Hulman, I'm pursuing a dual-degree in that combines the precision of mechanical engineering with the innovation of computer engineering. This unique combination allows me to design both the physical systems and the intelligent control that bring immersive experiences to life.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image"><img src="WKU.png" alt="Addie and Big Red Towel" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="tile-content">
+                            <h3>Western Kentucky University</h3>
+                            <p><strong>August 2022 - May 2024</strong></p>
+                            <p><strong>Associate of Arts in Interdisciplinary Studies</strong></p>
+                            <p style="margin-top: 1rem;">Through WKU, I built a strong foundation in mathematics, sciences, and humanities while developing critical thinking and communication skills essential for engineering leadership.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile">
+                        <div class="tile-image"><img src="Gatton.jpg" alt="Gatton Graduation" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="tile-content">
+                            <h3>The Gatton Academy of Mathematics and Science</h3>
+                            <p><strong>August 2022 - May 2024</strong></p>
+                            <p>A prestigious residential program for exceptional Kentucky high school students, the Gatton Academy provided early access to university-level STEM courses and research opportunities. This accelerated program allowed me to dive deep into advanced mathematics, physics, and engineering while surrounded by similarly driven peers.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image"><img src="WCHS.png" alt="WCHS Graduation" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="tile-content">
+                            <h3>Woodford County High School</h3>
+                            <p><strong>August 2020 - May 2024</strong></p>
+                            <p>My high school years laid the groundwork for my engineering journey, where I discovered my passion for STEM, developed leadership skills through athletics and clubs, and built the work ethic that drives me today.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Relevant Courses Tab -->
+                <div class="tab-content" id="courses-tab">
+                    <h2 style="text-align: center; color: var(--primary); margin: 3rem 0 2rem; font-size: 2rem;">Relevant Coursework</h2>
+                    
+                    <div class="wide-tile">
+                        <div class="tile-image">💻</div>
+                        <div class="tile-content">
+                            <h3>Computer Engineering</h3>
+                            <p><strong>Core Courses:</strong></p>
+                            <p>• Digital Systems Design<br>
+                            • Embedded Systems<br>
+                            • Computer Architecture<br>
+                            • FPGA Design & Implementation<br>
+                            • Signal Processing<br>
+                            • Software Design & Development<br>
+                            • Microprocessor Systems<br>
+                            • VHDL & Hardware Description Languages</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image">⚙️</div>
+                        <div class="tile-content">
+                            <h3>Mechanical Engineering</h3>
+                            <p><strong>Core Courses:</strong></p>
+                            <p>• Dynamics & Kinematics<br>
+                            • Mechanics of Materials<br>
+                            • Thermodynamics<br>
+                            • Machine Design<br>
+                            • CAD/CAM & Design for Manufacturing<br>
+                            • Control Systems<br>
+                            • Fluid Mechanics<br>
+                            • Heat Transfer</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile">
+                        <div class="tile-image">🤖</div>
+                        <div class="tile-content">
+                            <h3>Robotics</h3>
+                            <p><strong>Core Courses:</strong></p>
+                            <p>• Autonomous Systems<br>
+                            • Computer Vision<br>
+                            • Robot Kinematics & Dynamics<br>
+                            • Sensor Integration & Fusion<br>
+                            • Motion Planning & Control<br>
+                            • Mobile Robotics<br>
+                            • Human-Robot Interaction</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image">🎯</div>
+                        <div class="tile-content">
+                            <h3>Systems Engineering & Management</h3>
+                            <p><strong>Core Courses:</strong></p>
+                            <p>• Systems Thinking & Architecture<br>
+                            • Project Management<br>
+                            • Requirements Engineering<br>
+                            • Systems Integration<br>
+                            • Engineering Economics<br>
+                            • Quality Control & Assurance<br>
+                            • Risk Management</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extracurriculars Tab -->
+                <div class="tab-content" id="extracurriculars-tab">
+                    <h2 style="text-align: center; color: var(--primary); margin: 3rem 0 2rem; font-size: 2rem;">Beyond the Classroom</h2>
+                    
+                    <div class="wide-tile">
+                        <div class="tile-image">🎢</div>
+                        <div class="tile-content">
+                            <h3>Theme Park Engineering & Design</h3>
+                            <p><strong>Vice President / Competition Lead</strong></p>
+                            <p><strong>January 2026 - Present</strong></p>
+                            <p>Leading a team of passionate engineers and designers in creating innovative theme park experiences and competing in national design challenges. As VP and Competition Lead, I coordinate project development, mentor team members, and bridge the gap between creative vision and technical execution.</p>
+                            <p style="margin-top: 1rem;">This role combines my love for immersive storytelling with rigorous engineering design, allowing me to explore ride systems, show control, and experience design while building leadership skills in a field I'm deeply passionate about.</p>
+                            <strong>Skills:</strong>
+                            <p>Experience design, project leadership, systems integration, creative problem-solving, team coordination</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image">🎾</div>
+                        <div class="tile-content">
+                            <h3>Women's Varsity Tennis</h3>
+                            <p><strong>Student-Athlete</strong></p>
+                            <p><strong>August 2024 - Present</strong></p>
+                            <p>As a member of the Rose-Hulman varsity tennis team, I've learned that excellence requires more than just technical skill—it demands mental toughness, strategic thinking, and unwavering dedication. Tennis has taught me how to perform under pressure, adapt to changing conditions, and maintain focus during long, grueling matches.</p>
+                            <p style="margin-top: 1rem;">Beyond my own performance, I've had the privilege of serving in leadership roles, mentoring younger players and helping build team culture. I've learned that the best teams are built on trust, communication, and a shared commitment to growth. These lessons translate directly to engineering teams, where collaboration and mutual support are essential for success.</p>
+                            <strong>Key Skills Developed:</strong>
+                            <p>Resilience, strategic thinking, time management, mentorship, competitive drive, team dynamics</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile">
+                        <div class="tile-image">✝️</div>
+                        <div class="tile-content">
+                            <h3>InterVarsity Christian Student Fellowship</h3>
+                            <p><strong>Hospitality & Outreach Coordinator</strong></p>
+                            <p><strong>August 2024 - Present</strong></p>
+                            <p>As Hospitality & Outreach Coordinator, I create welcoming environments for students to connect, grow, and find community. This role has deepened my understanding of inclusive leadership and the importance of creating spaces where everyone feels they belong.</p>
+                            <p style="margin-top: 1rem;">Through organizing events, coordinating outreach initiatives, and building relationships across campus, I've developed skills in event planning, communication, and community building. This work reflects my belief that the best solutions—whether in engineering or in life—center on understanding and serving people.</p>
+                            <strong>Impact Areas:</strong>
+                            <p>Community building, event coordination, inclusive leadership, interpersonal communication, service orientation</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leadership Tab -->
+                <div class="tab-content" id="leadership-tab">
+                    <h2 style="text-align: center; color: var(--primary); margin: 3rem 0 2rem; font-size: 2rem;">Leadership & Impact</h2>
+                    
+                    <div class="wide-tile">
+                        <div class="tile-image">🎢</div>
+                        <div class="tile-content">
+                            <h3>Theme Park Engineering & Design - VP/Competition Lead</h3>
+                            <p><strong>January 2026 - Present</strong></p>
+                            <p>Leading a team of passionate engineers and designers, I coordinate project development from concept to completion, manage competition strategy, and mentor team members in both technical skills and creative thinking. This role requires balancing the artistic vision of themed entertainment with the rigorous engineering required to make it real.</p>
+                            <strong>Leadership Impact:</strong>
+                            <p>Project coordination, team mentorship, cross-functional collaboration, strategic planning, public presentation</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image">✝️</div>
+                        <div class="tile-content">
+                            <h3>InterVarsity - Hospitality & Outreach Coordinator</h3>
+                            <p><strong>August 2024 - Present</strong></p>
+                            <p>Creating welcoming environments where students can connect, grow, and find community. I organize events, coordinate outreach initiatives, and build relationships across campus. This role has taught me the importance of inclusive leadership and creating spaces where everyone belongs.</p>
+                            <strong>Leadership Impact:</strong>
+                            <p>Event planning, community building, inclusive leadership, interpersonal communication, service coordination</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile">
+                        <div class="tile-image">🎾</div>
+                        <div class="tile-content">
+                            <h3>Varsity Tennis - Team Leadership</h3>
+                            <p><strong>August 2024 - Present</strong></p>
+                            <p>As a varsity athlete, I've taken on informal leadership roles—mentoring younger players, fostering team culture, and leading by example both on and off the court. Tennis has taught me that leadership isn't just about titles; it's about showing up, supporting your teammates, and consistently giving your best.</p>
+                            <strong>Leadership Impact:</strong>
+                            <p>Mentorship, team building, leading by example, resilience under pressure, performance optimization</p>
+                        </div>
+                    </div>
+
+                    <div class="info-box" style="margin-top: 3rem;">
+                        <h3>Core Leadership Philosophy</h3>
+                        <p style="margin-top: 1rem;">My approach to leadership is rooted in servant leadership—the idea that the best leaders serve their teams, empower others to succeed, and create environments where everyone can contribute their best work. Whether I'm coordinating a theme park design project, organizing campus events, or supporting my tennis teammates, I focus on:</p>
+                        <ul style="margin-left: 2rem; margin-top: 1rem; line-height: 2;">
+                            <li><strong>Empowering Others:</strong> Creating opportunities for team members to grow and take ownership</li>
+                            <li><strong>Clear Communication:</strong> Ensuring everyone understands goals, expectations, and their role</li>
+                            <li><strong>Inclusive Decision-Making:</strong> Valuing diverse perspectives and collaborative problem-solving</li>
+                            <li><strong>Leading by Example:</strong> Demonstrating the commitment, integrity, and work ethic I expect from others</li>
+                            <li><strong>Adaptability:</strong> Adjusting leadership style to fit the team's needs and project requirements</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Interests & Values Tab -->
+                <div class="tab-content" id="interests-tab">
+                    <h2 style="text-align: center; color: var(--primary); margin: 3rem 0 2rem; font-size: 2rem;">What Drives & Inspires Me</h2>
+                    
+                    <div class="wide-tile">
+                        <div class="tile-image">💡</div>
+                        <div class="tile-content">
+                            <h3>Innovation Through Storytelling</h3>
+                            <p>I believe the best engineering happens at the intersection of creativity and technical precision. Technology alone doesn't create magic—it's the story we tell, the emotion we evoke, and the human connection we foster that transforms engineering into something extraordinary.</p>
+                            <p style="margin-top: 1rem;">Every project I undertake is an opportunity to tell a story, whether that's the narrative of a theme park attraction or the journey of a user interacting with a product. I approach engineering as a form of storytelling where every design decision contributes to a larger experience.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image">🎨</div>
+                        <div class="tile-content">
+                            <h3>Creative Design & Visual Storytelling</h3>
+                            <p>My creativity extends beyond engineering projects. I'm passionate about design, whether that's sketching ideas for new inventions, exploring visual storytelling, or simply appreciating the art and design in everyday experiences. This creative mindset influences how I approach technical challenges—I don't just ask "Does it work?" but "Does it create an experience worth having?"</p>
+                            <p style="margin-top: 1rem;">I love exploring the intersection of aesthetics and function, where beautiful design meets purposeful engineering. From typography to color theory to spatial design, I study the elements that make experiences memorable and emotionally resonant.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile">
+                        <div class="tile-image">🌈</div>
+                        <div class="tile-content">
+                            <h3>Accessibility & Inclusive Design</h3>
+                            <p>Great experiences should be available to everyone. I'm committed to designing systems, products, and experiences that consider diverse abilities, backgrounds, and needs from the very beginning—not as an afterthought.</p>
+                            <p style="margin-top: 1rem;">Inclusive design isn't just ethical—it's smart engineering. When we design for accessibility, we often discover innovations that benefit everyone. Universal design principles make experiences better for all users, not just those with specific needs.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image">🌍</div>
+                        <div class="tile-content">
+                            <h3>Travel & Cultural Exploration</h3>
+                            <p>Travel has been one of my greatest teachers. Experiencing different cultures, seeing how people solve problems in different contexts, and witnessing diverse approaches to design and engineering has broadened my perspective tremendously.</p>
+                            <p style="margin-top: 1rem;">From theme parks around the world to museums, cultural landmarks, and immersive experiences, each journey deepens my understanding of what makes experiences memorable and meaningful. I'm fascinated by how different cultures create joy, preserve traditions, and use design to tell their stories.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile">
+                        <div class="tile-image">🤝</div>
+                        <div class="tile-content">
+                            <h3>Collaboration & Lifelong Learning</h3>
+                            <p>The most meaningful work happens in teams. I value diverse perspectives, cross-disciplinary collaboration, and the idea that everyone brings unique insights to the table. The best solutions emerge when engineers, artists, designers, and storytellers work together.</p>
+                            <p style="margin-top: 1rem;">I'm committed to lifelong learning—staying curious, embracing challenges, and recognizing that every project, every person, and every failure is an opportunity to grow. The field of engineering is constantly evolving, and I'm excited to evolve with it.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image">🤖</div>
+                        <div class="tile-content">
+                            <h3>Robotics & Automation</h3>
+                            <p>Beyond coursework, I'm fascinated by the potential of robotics to transform how we interact with the world. From autonomous systems to human-robot collaboration, I'm constantly exploring how intelligent machines can enhance human experiences rather than replace them.</p>
+                            <p style="margin-top: 1rem;">I'm particularly interested in robotics applications in themed entertainment—animatronics, interactive characters, and autonomous show systems that create magical moments for guests while pushing the boundaries of what's technically possible.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile">
+                        <div class="tile-image">✨</div>
+                        <div class="tile-content">
+                            <h3>Creating Joy & Wonder</h3>
+                            <p>At the core of everything I do is a simple belief: engineering should make life better, more joyful, and more wonder-filled. Whether I'm designing a complex system or solving a technical problem, I ask myself: "Will this bring delight to someone's life?"</p>
+                            <p style="margin-top: 1rem;">This value drives my passion for themed entertainment, where engineering has the explicit purpose of creating joy, wonder, and memories that last a lifetime. It's why I'm pursuing a career where I can use my technical skills to bring smiles to faces and magic to moments.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile reverse">
+                        <div class="tile-image">🎭</div>
+                        <div class="tile-content">
+                            <h3>Immersive Experiences & Entertainment Technology</h3>
+                            <p>I'm endlessly curious about how technology creates emotion. Whether it's a theme park attraction, an interactive installation, or a live performance, I study the technical systems that create wonder—projection mapping, motion control, interactive sensors, synchronized show systems, and more.</p>
+                            <p style="margin-top: 1rem;">This interest drives my academic and career goals, as I work to master the multidisciplinary skills needed to design the next generation of immersive experiences.</p>
+                        </div>
+                    </div>
+
+                    <div class="wide-tile">
+                        <div class="tile-image">🎯</div>
+                        <div class="tile-content">
+                            <h3>Purpose-Driven Work</h3>
+                            <p>I believe work should have meaning beyond the paycheck. I'm drawn to projects and organizations that align with my values—those that prioritize people, sustainability, creativity, and positive impact on the world.</p>
+                            <p style="margin-top: 1rem;">This is why I'm passionate about theme park engineering: it combines technical excellence with the clear purpose of creating experiences that bring people together, foster imagination, and create lasting memories across generations.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="text-align: center; color: var(--primary); margin: 3rem 0 1rem;">How These Experiences Shape My Engineering</h3>
+                
+                <div style="background: white; padding: 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.1);">
+                    <p>My extracurricular activities, interests, and values aren't separate from my engineering journey—they're integral to it. Theme park design gives me hands-on experience in the field I love. Tennis has taught me discipline and resilience. Faith-based leadership has developed my communication and community-building skills. Creative pursuits have expanded my problem-solving toolkit. Travel has broadened my perspective on design and human experience.</p>
+                    <p style="margin-top: 1rem;">These experiences make me a better engineer because they remind me that engineering is ultimately about people. Whether I'm designing a ride system, programming a robot, or creating an immersive experience, I'm not just solving technical problems—I'm creating moments that matter, building systems that serve, and crafting experiences that bring joy.</p>
+                    <p style="margin-top: 1rem; font-weight: 600; color: var(--primary);">This holistic perspective is what I bring to every project, every team, and every challenge.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Work Experience Page -->
+    <div class="page" id="work">
+        <div class="container">
+            <h1 style="text-align: center; color: var(--primary); margin-bottom: 3rem; font-size: 2.5rem;">Work Experience</h1>
+            
+            <div class="wide-tile">
+                <div class="tile-image"><img src="Badger.jpg" alt="Otter bot" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                <div class="tile-content">
+                    <h3>Badger Technologies</h3>
+                    <p><strong>Robotics Support Technician</strong></p>
+                    <p><strong>2022 - 2023</strong></p>
+                    <p>Maintained and optimized autonomous retail robots deployed in grocery stores nationwide. Diagnosed system failures, performed preventive maintenance, updated software systems, and collaborated with engineering teams for complex issue resolution. This role gave me invaluable experience with real-world robotics applications and the importance of robust, reliable design.</p>
+                    <strong>Key Responsibilities:</strong>
+                    <p>• System diagnostics and troubleshooting<br>
+                    • Preventive maintenance and optimization<br>
+                    • Software updates and configuration<br>
+                    • Technical documentation and reporting<br>
+                    • Cross-functional team collaboration</p>
+                    <strong>Technical Skills Applied:</strong>
+                    <p>Navigation systems, sensor arrays, control software, system logs analysis, remote support</p>
+                    <strong>Impact:</strong>
+                    <p>Reduced average robot downtime, improved system reliability, and developed troubleshooting protocols that increased team efficiency</p>
+                </div>
+            </div>
+
+            <div class="wide-tile reverse">
+                <div class="tile-image"><img src="Research.jpg" alt="WKU Scholar Showcase" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                <div class="tile-content">
+                    <h3>EEG Signal Processing Research</h3>
+                    <p><strong>Research Assistant</strong></p>
+                    <p><strong>January 2023 - May 2024</strong></p>
+                    <p>Analyzed EEG signals to identify patterns associated with specific cognitive states and developed processing algorithms for real-time applications. Applied digital signal processing techniques and machine learning to biological data, contributing to brain-computer interface research.</p>
+                    <strong>Key Responsibilities:</strong>
+                    <p>• EEG data collection and preprocessing<br>
+                    • Algorithm development for signal analysis<br>
+                    • Machine learning model implementation<br>
+                    • Research documentation and presentation<br>
+                    • Literature review and methodology development</p>
+                    <strong>Technical Skills Applied:</strong>
+                    <p>MATLAB, Python, FFT analysis, wavelet transforms, adaptive filtering, machine learning classification</p>
+                    <strong>Research Contributions:</strong>
+                    <p>Successfully identified signal patterns with high accuracy, contributing to understanding of brain-computer interface applications</p>
+                </div>
+            </div>
+
+            <div style="background: white; padding: 2rem; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin-top: 3rem;">
+                <h3 style="color: var(--primary); margin-bottom: 1rem;">What I Bring from Professional Experience</h3>
+                <p>My work experience has taught me that great engineering isn't just about technical skills—it's about understanding real-world constraints, user needs, and the importance of reliability. From maintaining robots in demanding retail environments to conducting research with complex biological signals, I've learned to:</p>
+                <ul style="margin-left: 2rem; margin-top: 1rem; line-height: 1.8;">
+                    <li>Design for robustness and real-world conditions, not just ideal scenarios</li>
+                    <li>Communicate technical concepts to non-technical stakeholders</li>
+                    <li>Balance innovation with practical constraints like budget, timeline, and reliability</li>
+                    <li>Document thoroughly and think systematically about complex problems</li>
+                    <li>Collaborate across disciplines and appreciate diverse perspectives</li>
+                </ul>
+                <p style="margin-top: 1rem; font-weight: 600; color: var(--primary);">These experiences have prepared me to contribute meaningfully to teams designing the next generation of immersive experiences.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills Page (now removed - moved to About tabs) -->
+
+    <!-- Projects Hub -->
+    <div class="page" id="projects">
+        <div class="container">
+            <div class="projects-hub">
+                <h1>Project Portfolio</h1>
+                <div class="projects-grid">
+                    <div class="project-card" data-project="blue-box">
+                        <div class="project-image"><img src="bluebox.png" alt="Bluebox Project" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="project-content">
+                            <h3>Blue Box Capstone</h3>
+                            <p>Senior capstone project developing an innovative gaming experience</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="pong-fpga">
+                        <div class="project-image"><img src="Pong.jpg" alt="TerasIC FPGA Altera Board" style="width: 100%; height: 100%; object-fit: cover;"></div>
+                        <div class="project-content">
+                            <h3>Pong FPGA Game</h3>
+                            <p>Classic game reimagined with FPGA hardware design</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="bonfire-game">
+                        <div class="project-image"><img src="bonfireGame.jpg" alt="Bonfire Game Screen" style="width: 100%; height: 100%; object-fit: fit;"></div>
+                        <div class="project-content">
+                            <h3>Rose-Hulman Bonfire Game</h3>
+                            <p>Interactive digital experience for campus tradition</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="olympics-robot">
+                        <div class="project-image">🤖</div>
+                        <div class="project-content">
+                            <h3>Olympics Robot</h3>
+                            <p>Competitive robotics project showcasing autonomous systems</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="projectile-game">
+                        <div class="project-image">🎯</div>
+                        <div class="project-content">
+                            <h3>Projectile Motion Simulation</h3>
+                            <p>Physics-based interactive learning game</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="cornhole-launcher">
+                        <div class="project-image"><img src="cornhole.jpeg" alt="CornHole ballista-inspired beanbag launcher" style="width: 100%; height: 100%; object-fit: fit;"></div>
+                        <div class="project-content">
+                            <h3>Cornhole Beanbag Launcher</h3>
+                            <p>Automated mechanical system with precision targeting</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="socket-chat-program">
+                        <div class="project-image"><img src="Sockets.jpg" alt="Sockets Communication Impletation in WSL" style="width: 100%; height: 100%; object-fit: fit;"></div>
+                        <div class="project-content">
+                            <h3>Socket Chat Program</h3>
+                            <p>TCP/IP client-server chat application in C</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="thermocouple-signal-conditioning">
+                        <div class="project-image">🌡️</div>
+                        <div class="project-content">
+                            <h3>Thermocouple Signal Conditioning</h3>
+                            <p>System modeling and signal conditioning circuit design</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="wah-pedal">
+                        <div class="project-image">🎸</div>
+                        <div class="project-content">
+                            <h3>Wah Pedal Modeling</h3>
+                            <p>Frequency response analysis and circuit redesign</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="piezoelectric-beam">
+                        <div class="project-image">⚡</div>
+                        <div class="project-content">
+                            <h3>Piezoelectric Beam</h3>
+                            <p>Electromechanical system modeling and vibration analysis</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="loudspeaker-driver">
+                        <div class="project-image">🔊</div>
+                        <div class="project-content">
+                            <h3>Loudspeaker Driver Design</h3>
+                            <p>Audio system modeling and enclosure optimization</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="single-cycle-processor">
+                        <div class="project-image">⚙️</div>
+                        <div class="project-content">
+                            <h3>Single-Cycle Processor</h3>
+                            <p>RISC-V processor implementation in Verilog</p>
+                        </div>
+                    </div>
+                    <div class="project-card" data-project="pipelined-processor">
+                        <div class="project-image"><img src="pipelinedProcessor.jpg" alt="Pipelined Processor pipe hazards implementation" style="width: 100%; height: 100%; object-fit: fit;"></div>
+                        <div class="project-content">
+                            <h3>Pipelined Processor</h3>
+                            <p>Advanced RISC-V processor with hazard resolution</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leadership Page (now removed - moved to About tabs) -->
+
+    <!-- Resume Page -->
+    <div class="page" id="resume">
+        <div class="container">
+            <div class="resume-container">
+                <h1>Resume</h1>
+                <p>Download my resume to learn more about my experience and qualifications.</p>
+                <a href="#" class="btn btn-primary" style="margin: 2rem 0; display: inline-block;">Download Resume (PDF)</a>
+                
+                <div style="background: var(--light); padding: 2rem; border-radius: 15px; margin: 2rem 0;">
+                    <h3 style="color: var(--primary); margin-bottom: 1rem;">Experience Highlights</h3>
+                    <p>My resume showcases my journey through engineering, robotics, and themed entertainment. It includes detailed information about my dual majors, technical projects, leadership roles, and professional experience.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Page (now removed - moved to footer) -->
+
+    <!-- Project Modal -->
+    <div class="modal" id="projectModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close-modal" onclick="closeModal()">×</button>
+                <h2 id="modalTitle"></h2>
+                <p id="modalSubtitle"></p>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <!-- Footer with Contact Info -->
+    <footer style="background: var(--dark); color: white; padding: 3rem 2rem; margin-top: 4rem;">
+        <div class="container">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: var(--accent);">Let's Connect</h3>
+                    <p>I'd love to hear from you! Whether you're interested in my work, have opportunities to discuss, or just want to connect.</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: var(--accent);">Contact</h3>
+                    <p style="margin: 0.5rem 0;"><strong>📧 Email:</strong> patteral@rose-hulamn.edu</p>
+                    <p style="margin: 0.5rem 0;"><strong>💼 LinkedIn:</strong> linkedin.com/in/addie-patterson</p>
+                </div>
+                <div>
+                    <h3 style="margin-bottom: 1rem; color: var(--accent);">Quick Links</h3>
+                    <p style="margin: 0.5rem 0;"><a href="#" data-page="about" style="color: white; text-decoration: none;">About Me</a></p>
+                    <p style="margin: 0.5rem 0;"><a href="#" data-page="work" style="color: white; text-decoration: none;">Work Experience</a></p>
+                    <p style="margin: 0.5rem 0;"><a href="#" data-page="projects" style="color: white; text-decoration: none;">Projects</a></p>
+                    <p style="margin: 0.5rem 0;"><a href="#" data-page="resume" style="color: white; text-decoration: none;">Resume</a></p>
+                </div>
+            </div>
+            <div style="text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                <p>&copy; 2026 Addie Patterson. Aspiring Theme Park Engineer.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation
+        const navLinks = document.querySelectorAll('nav a');
+        const pages = document.querySelectorAll('.page');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                showPage(pageId);
+            });
+        });
+
+        // CTA Buttons
+        const ctaButtons = document.querySelectorAll('.btn');
+        ctaButtons.forEach(button => {
+            if (button.hasAttribute('data-page')) {
+                button.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const pageId = button.getAttribute('data-page');
+                    showPage(pageId);
+                });
+            }
+        });
+
+        // Footer links
+        const footerLinks = document.querySelectorAll('footer a[data-page]');
+        footerLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const pageId = link.getAttribute('data-page');
+                showPage(pageId);
+            });
+        });
+
+        function showPage(pageId) {
+            pages.forEach(page => page.classList.remove('active'));
+            const targetPage = document.getElementById(pageId);
+            if (targetPage) {
+                targetPage.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // Project Cards
+        const projectCards = document.querySelectorAll('.project-card');
+        const modal = document.getElementById('projectModal');
+        
+        const projectData = {
+           'blue-box': {
+                title: 'Blue Box Capstone',
+                subtitle: 'Embedded Systems & Mechatronics | Feb – May 2025',
+                skills: 'MSP432P4111, C, Assembly, Embedded Drivers, SolidWorks, Soldering, Machining, Oscilloscope, LCD, DTMF',
+                role: 'Embedded Systems Engineer',
+                team: 'Team of 2',
+                problem: 'Emulate a blue-box phone and its frequency-clearing behavior to explore sound manipulation through embedded systems using multiple inputs, outputs, and programming languages.',
+                process: 'After accidentally sending a speaker frequency to a wheel and hearing it “play” sound, we became fascinated by physical systems reacting to audio. We researched sound manipulation, designed system architecture, wrote low-level drivers, soldered circuitry, machined components, and tested behavior through iterative builds.',
+                engineering: 'Programmed timers, interrupts, GPIO, and peripherals in C and Assembly. Integrated keypad and push-button inputs, generated LCD feedback, and produced DTMF tones using a resistor network. Soldered electronic components, machined physical parts, and designed a SolidWorks enclosure to unify mechanical and electrical systems.',
+                challenges: 'Debugging low-level timing issues, synchronizing hardware and software, and achieving strict frequency accuracy while maintaining real-time HMI response.',
+                result: 'Delivered a fully functional prototype that reacted instantly to user input, demonstrating precise sound generation and real-time human–machine interaction.',
+                learned: 'Learned embedded system architecture, soldering and machining integration, multi-language programming, and how powerful human–machine interaction feels when systems respond instantly.'
+            },
+
+            'olympics-robot': {
+                title: 'Olympics Robot',
+                subtitle: 'Mechatronics & Controls | Sept – Nov 2024',
+                skills: 'ESP-32, C++, Sensors, Servo Motors, PLC Logic, Control Systems',
+                role: 'Controls Engineer',
+                team: 'Team of 4',
+                problem: 'Design an autonomous robot capable of completing competition-style challenges using sensors, motors, and control logic.',
+                process: 'Defined team goals, delegated tasks, developed control logic, integrated sensors and motors, and tested performance iteratively.',
+                engineering: 'Built closed-loop feedback systems using ultrasonic and color sensors, programmed PLC-style logic on ESP-32, and created HMI for manual override.',
+                challenges: 'Tuning control loops, integrating multiple subsystems, and meeting competition deadlines.',
+                result: 'Robot successfully completed competition challenges; milestone completion improved by 33% through structured task delegation.',
+                learned: 'Controls engineering, robotics integration, leadership, and systems thinking.'
+                // Will update once you send competition details and results
+            },
+
+            'pong-fpga': {
+                title: 'Pong FPGA Game',
+                subtitle: 'Digital Systems & Computer Architecture | Nov 2024 – Feb 2025',
+                skills: 'Verilog, Quartus Prime, FPGA, FSMs, RISC-V, Digital Logic, VGA, Audio Output',
+                role: 'Digital Systems Engineer',
+                team: 'Solo Project',
+                problem: 'Create a fully functional two-player Pong game using only hardware logic on an FPGA, including sound and scoring display.',
+                process: 'Designed system architecture, implemented combinational and sequential logic, synchronized subsystems using FSMs, and tested timing across modules.',
+                engineering: 'Built game using latches, flip-flops, ALUs, registers, multiplexers, and a RISC-V processor. Implemented VGA display, audio output, scoring system, and real-time paddle control in Verilog.',
+                challenges: 'Synchronizing display refresh with game logic, implementing sound in hardware, and debugging complex logic interactions.',
+                result: 'Delivered a smooth two-player Pong game with sound and scoring display running entirely on FPGA hardware.',
+                learned: 'Digital architecture, timing constraints, hardware system integration, and building interactive experiences purely in hardware.'
+            },
+
+            'bonfire-game': {
+                title: 'Rose-Hulman Bonfire Game',
+                subtitle: 'Object-Oriented Software Design | Sept – Nov 2024',
+                skills: 'Unity, C#, UML, Git, Physics-Based Game Design',
+                role: 'Software Engineer',
+                team: 'Team of 3',
+                problem: 'Create a digital experience inspired by the Rose-Hulman bonfire tradition while maintaining clean software architecture.',
+                process: 'Planned system using UML, managed workflow with GitHub, built modular subsystems, and iterated through testing.',
+                engineering: 'Engineered physics-based player movement, modular game mechanics, and clean input-output behavior using object-oriented principles.',
+                challenges: 'Maintaining clean architecture as features grew and resolving an ethical issue involving unauthorized AI use.',
+                result: 'Delivered a playable game reflecting campus tradition with ethical and technical integrity.',
+                learned: 'Software architecture, ethical engineering, teamwork, and technical communication.'
+                // Add GitHub link when confirmed public
+            },
+
+            'projectile-game': {
+                title: 'Projectile Motion Simulation Game',
+                subtitle: 'Computational Problem Solving | Jan – May 2023',
+                skills: 'MATLAB, Differential Equations, GUI Design, App Designer',
+                role: 'Simulation Engineer',
+                team: 'Team of 3',
+                problem: 'Create an engaging educational game that teaches projectile motion through interactive simulation.',
+                process: 'Designed physics model, implemented simulation, built GUI with App Designer, and tested with students and faculty.',
+                engineering: 'Programmed second-order differential equations, animated trajectories, implemented difficulty levels, and built two-player mode.',
+                challenges: 'Balancing physics accuracy with playability and building an intuitive user interface.',
+                result: 'Presented to students and a panel of faculty, who praised the UI design, difficulty levels, two-player mode, and overall visual appeal.',
+                learned: 'Simulation design, GUI development, teamwork, and designing technical tools that feel fun and intuitive.'
+            },
+
+            'cornhole-launcher': {
+                title: 'Cornhole Beanbag Launcher',
+                subtitle: 'Mechanical Design | Aug – Dec 2022',
+                skills: 'SolidWorks, 3D Printing, Machining, Prototyping, Mechanics',
+                role: 'Mechanical Engineer',
+                team: 'Team of 5',
+                problem: 'Design a mechanical system that consistently launches beanbags into a cornhole board from varying distances.',
+                process: 'Evaluated concepts using engineering drawings and scoring matrices, built prototypes, and refined through testing.',
+                engineering: 'Designed a lightweight crossbow-style launcher using wood, PVC, and 3D-printed gears in SolidWorks and fabricated physical components.',
+                challenges: 'Improving accuracy while reducing weight and complexity.',
+                result: 'Our crossbow-style design was significantly lighter and more accurate than competitors, outperforming 16 teams by at least 20%.',
+                learned: 'Mechanical design, prototyping, testing, and how simplicity often improves performance.'
+            },
+
+            'olympics-robot': {
+                title: 'Olympics Robot',
+                subtitle: 'Mechatronics, Controls, Fabrication & Ethics | Sept – Nov 2024',
+                skills: 'ESP-32, C++, Sensors, Servo Motors, PLC Logic, Control Systems, LEDs, Soldering, Circuit Assembly, Technical Communication',
+                role: 'Controls & Integration Engineer',
+                team: 'Team of 4',
+                problem: 'Design a single robot capable of competing in five Olympics-themed events—Shot Put, Hurdles, Long Jump, Floor Exercise, and Soccer—each with unique mechanical, electrical, and control requirements, while also demonstrating responsible engineering practice.',
+                process: 'Broke complex rule sets into engineering requirements, delegated tasks to speed development, built and soldered electronic systems, programmed control logic, integrated subsystems, tested under timed conditions, and reflected on ethical responsibilities through a formal ethics presentation.',
+                engineering: 'Programmed PLC-style logic on an ESP-32 using C++. Built closed-loop control using ultrasonic and color sensors, controlled servo motors for movement and claw operation, integrated LED signaling for event-specific rules, soldered circuit connections, and implemented both autonomous and semi-autonomous modes to earn scoring multipliers.',
+                challenges: 'Meeting strict competition rules, synchronizing motion with LED signaling, tuning control loops, adapting one robot to very different event styles, and ensuring reliable hardware connections through soldering.',
+                result: 'Robot successfully completed all events including spinning-release for Shot Put, LED-timed Hurdles, timed Long Jump, creative Floor Exercise maneuvers, and goal-based Soccer. Team improved milestone completion time by 33% through structured task delegation.',
+                learned: 'Learned multi-system integration, control tuning, fabrication through soldering, competition engineering, and how ethics and technical decisions are deeply connected in real engineering work.'
+            },
+
+            'socket-chat-program': {
+                title: 'Socket Chat Program',
+                subtitle: 'Communication Networks | TCP Sockets, C, UNIX | ECE 312',
+                skills: 'C Programming, TCP/IP, Socket Programming, Client-Server Architecture, UNIX/Linux, GCC, Debugging, Networking Protocols, Technical Documentation',
+                role: 'Network Software Engineer',
+                team: 'Team of 2',
+                problem: 'Design a two-person chat application using TCP sockets that allows bi-directional, non-blocking communication between two hosts on different machines, including username sharing, IP display, and graceful exit handling.',
+                process: 'Studied socket programming through Stallings and Beej’s Guide, modified example client/server code, implemented TCP connection setup, added username exchange, labeled messages, tested across separate machines, handled exit signals, and documented results with screenshots and written analysis.',
+                engineering: 'Built ChatServer.c and ChatClient.c using TCP (SOCK_STREAM) sockets in C. Implemented non-blocking send/receive so users could send multiple messages without waiting for a response. Added username prompt and exchange after connection setup, displayed connected host IPs, labeled messages with sender name, and implemented a fixed exit command that safely closed connections on both sides.',
+                challenges: 'Managing non-blocking I/O, handling simultaneous send/receive without freezing, debugging network issues across different machines, firewall and port conflicts, and ensuring clean socket closure.',
+                result: 'Successfully demonstrated two-way chat between separate machines with unique IPs, labeled messages, real-time communication, and clean exit handling. Met all rubric requirements including non-blocking communication and proper documentation.',
+                learned: 'Gained hands-on experience with low-level networking, client-server design, concurrency challenges, TCP reliability, debugging distributed systems, and writing clear technical documentation.',
+            },
+
+            'thermocouple-signal-conditioning': {
+                title: 'Thermocouple and Signal Conditioning Circuit',
+                subtitle: 'Dynamic Systems & Instrumentation | Modeling and System Identification',
+                skills: 'System Modeling, Signal Conditioning, Data Acquisition, MATLAB, Simulink, Experimental Design, Curve Fitting, Control Systems, Circuit Analysis',
+                role: 'Systems Modeling Engineer',
+                team: 'Team Project',
+                problem: 'Thermocouples produce extremely small voltages that are highly susceptible to electrical and radio-frequency noise and are difficult to read directly with a DAQ system. The goal was to model the thermocouple and its signal conditioning circuit, determine which parts of the system significantly affect performance, and identify which components could be simplified or ignored.',
+                process: 'The project was divided into four major tasks: (1) experimentally model the full system using step response data, (2) separately model the pre-filter and post-filter and identify time constants that minimize error, (3) derive models of the circuit components from first principles and compare them to experimental models, and (4) isolate the thermocouple transfer function by combining models in Simulink and comparing full-order and reduced-order systems.',
+                engineering: 'Collected step-response data from the full thermocouple system using a DAQ. Built experimental models of the entire system, pre-filter, and post-filter using system identification techniques. Tuned first-order time constants to minimize error between measured and modeled responses. Modeled circuit components analytically using resistor-capacitor dynamics and converted them into standard-form transfer functions. Implemented all models in MATLAB Simulink and mathematically isolated the thermocouple’s transfer function by dividing out the known conditioning stages, then validated results through comparison plots and written analysis.',
+                challenges: 'Dealing with noisy experimental data, identifying appropriate time constants, determining which dynamics meaningfully impacted system behavior, and reconciling differences between experimentally derived and analytically derived models.',
+                result: 'Developed accurate experimental and analytical models for the full system and its subsystems. Created a Simulink model that predicted real system behavior well. Showed that a reduced-order model could closely match the full system response while being simpler and more computationally efficient.',
+                learned: 'Gained strong intuition for real-world sensor limitations, signal conditioning design, experimental system identification, model validation, and the tradeoff between model accuracy and simplicity.'
+            },
+
+            'wah-pedal': {
+                title: 'Wah Pedal Modeling and Redesign',
+                subtitle: 'Dynamic Systems & Circuits | Frequency Response and System Identification',
+                skills: 'Bode Plots, Frequency Response Functions (FRF), FFT, MATLAB, System Identification, Circuit Modeling, Transfer Functions, Signal Processing, Electrical Systems',
+                role: 'Systems Modeling Engineer',
+                team: 'Team Project',
+                problem: 'Model a guitar wah pedal using both experimental frequency response data and first-principles circuit analysis, then use the model to redesign the pedal for a wider frequency sweep.',
+                process: 'Built experimental Bode plots from measured input/output voltage data using FFT-based frequency response functions. Reverse-engineered the pedal’s transfer function from the experimental Bode plot, then derived the circuit model from first principles and compared the two. Used the model to estimate unknown potentiometer settings and redesign the pedal for improved performance.',
+                engineering: 'Used MATLAB and the provided FRFSpectrum function to compute frequency response functions from white-noise input data. Generated magnitude and phase Bode plots in dB and degrees. Identified system order and break frequencies from experimental data and created an approximate transfer function model. Derived the wah pedal circuit transfer function analytically using resistor–capacitor dynamics and a variable potentiometer. Simulated frequency response for multiple potentiometer values and analyzed how resistance affected peak frequency. Solved inverse problem to estimate potentiometer settings from experimental Bode plots. Modified circuit parameters to increase sweep range and justified the redesign through combined numerical results and written technical analysis.',
+                challenges: 'Extracting clean FRFs from noisy data, aligning experimental and analytical Bode plots, identifying correct break frequencies, and determining potentiometer values without direct measurements.',
+                result: 'Produced accurate experimental and analytical models of the wah pedal. Successfully estimated unknown potentiometer values from frequency response data. Redesigned the circuit to achieve a larger frequency sweep range based on transfer function analysis.',
+                learned: 'Developed strong understanding of frequency-domain modeling, system identification from experimental data, FFT-based analysis, and how circuit parameters shape audio effects.'
+            },
+
+            'piezoelectric-beam': {
+                title: 'Piezoelectric Beam Modeling and Testing',
+                subtitle: 'Vibrations & Smart Structures | Electromechanical Systems',
+                skills: 'Piezoelectric Materials, Vibration Analysis, System Modeling, MATLAB, Data Acquisition, Signal Processing, Experimental Testing, Electromechanical Systems',
+                role: 'Systems Modeling Engineer',
+                team: 'Team Project',
+                problem: 'Piezoelectric beams convert mechanical strain into electrical voltage, but their behavior depends strongly on vibration dynamics and boundary conditions. The goal was to model, test, and understand the electromechanical response of a piezoelectric beam under vibration.',
+                process: 'Developed a theoretical model relating beam deflection and vibration modes to electrical output. Designed experiments to excite the beam at different frequencies and amplitudes. Collected voltage and vibration data and compared experimental behavior to analytical predictions.',
+                engineering: 'Modeled beam dynamics using vibration theory and electromechanical coupling principles. Set up experimental apparatus with controlled excitation and data acquisition. Measured voltage output and vibration response across frequency ranges. Processed data in MATLAB to identify resonant frequencies and compare predicted and measured behavior. Evaluated how excitation conditions affected electrical output.',
+                challenges: 'Achieving consistent excitation, reducing electrical noise in measurements, aligning theoretical vibration modes with experimental results, and interpreting nonlinear or imperfect real-world behavior.',
+                result: 'Successfully demonstrated the relationship between vibration characteristics and electrical output of a piezoelectric beam. Experimental results closely matched predicted resonant behavior and validated the electromechanical model.',
+                learned: 'Gained experience with smart materials, vibration-based energy conversion, experimental validation of physical models, and the challenges of coupling mechanical and electrical systems.'
+            },
+
+            'loudspeaker-driver': {
+                title: 'Loudspeaker Modeling and Enclosure Design',
+                subtitle: 'Electro-Mechanical Systems | Audio Engineering',
+                skills: 'Lumped Parameter Modeling, Transfer Functions, System Identification, MATLAB, Data Acquisition, Signal Processing, Experimental Testing, Electromechanical Systems',
+                role: 'Systems Modeling Engineer',
+                team: 'Team Project',
+                problem: 'A loudspeaker driver converts electrical voltage to mechanical motion of the cone, producing sound. The performance depends on electromechanical dynamics and the enclosure. The goal was to model the driver, determine physical parameters from measurements, and design an appropriate enclosure.',
+                process: 'Developed a lumped-parameter model capturing the electrical, mechanical, and electromechanical behavior of the driver. Derived transfer functions for displacement and impedance. Collected experimental voltage and current data using a series resistor and white-noise excitation. Computed impedance FRFs and cropped data to isolate relevant frequency ranges. Extracted standard parameters (natural frequency, damping ratios, and gain) using geometric mean methods and Bode plot analysis. Applied the delta-mass method to refine physical parameters of the driver. Designed a transfer function from voltage to air pressure to model enclosure effects and selected a volume to achieve desired damping.',
+                engineering: 'Built experimental setup with function generator, amplifier, series resistor, and DAQ to measure driver response. Processed and analyzed voltage and current signals in MATLAB to calculate FRFs. Estimated mechanical and electrical damping, motor constant, and cone mass from experimental data. Verified parameters against spec sheet values and recreated impedance Bode plots for validation. Modeled the driver in MATLAB/Simulink and computed the pressure output in an idealized enclosure. Optimized enclosure volume to produce Butterworth response and computed the resulting cutoff frequency.',
+                challenges: 'Handling noisy experimental data, accurately estimating damping ratios and natural frequency, reconciling differences between physical measurements and model predictions, and accounting for coupled mechanical-electrical dynamics.',
+                result: 'Successfully modeled the driver’s displacement and impedance response, determined physical parameters consistent with measurements and spec sheet, and designed an ideal enclosure achieving target damping and frequency response. Simulated Bode plots closely matched experimental data and predicted air pressure output.',
+                learned: 'Gained experience with electromechanical system modeling, experimental system identification, audio driver characterization, and enclosure design principles. Developed skills in linking theoretical models to practical measurements and designing systems for target performance.'
+            },
+
+            'single-cycle-processor': {
+                title: 'Single-Cycle Processor Design and Implementation',
+                subtitle: 'Digital Systems | RISC-V Architecture',
+                skills: 'Verilog, Digital Design, Processor Datapath, Waveform Analysis, Testbenches, RISC-V, Sequential Logic, Clocking Strategies, Debugging',
+                role: 'Digital Design Engineer',
+                team: 'Individual/Team Project',
+                problem: 'Implementing a single-cycle processor requires careful coordination of sequential logic, datapath control, and instruction handling. The goal was to design, extend, and verify a limited-instruction single-cycle RISC-V processor, including R, I, and S types, with jump and link functionality.',
+                process: 'Instantiated and combined Verilog modules to form a complete single-cycle datapath. Iteratively added instructions and jump/link functionality, updating the processor while maintaining correct timing. Developed Verilog testbenches to simulate and verify instruction execution. Used ModelSim waveform diagrams to debug signal timing and register updates. Reasoned about clocking strategies to ensure sequential operations occurred in the correct order.',
+                engineering: 'Implemented a medium-sized Verilog project with RISC-V instructions. Extended the datapath to support new instruction types and control signals. Applied testbench-driven verification, comparing waveform outputs to expected results. Debugged race conditions and timing errors by analyzing clock edges and register update order. Maintained version control using Git to track iterative development.',
+                challenges: 'Coordinating sequential logic in a single-cycle processor, ensuring correct register updates for jump and link instructions, debugging waveform anomalies, and reasoning about the effect of clock edges on multiple registers.',
+                result: 'Successfully implemented a single-cycle RISC-V processor supporting R, I, S, and jump/link instructions. Verified correct functionality using testbenches and waveform analysis. Demonstrated understanding of sequential logic design, instruction execution, and clocking strategies.',
+                learned: 'Gained hands-on experience with processor design, instruction set implementation, sequential logic coordination, waveform analysis, testbench creation, and debugging in Verilog.'
+            },
+
+            'pipelined-processor': {
+                title: 'Pipelined Processor Design and Implementation',
+                subtitle: 'Digital Systems | RISC-V Architecture | Pipeline Hazards',
+                skills: 'Verilog, Digital Design, Processor Datapath, Pipelining, Hazard Resolution, Waveform Analysis, Testbenches, Instruction Set Design, Data Forwarding, Stalls, Debugging',
+                role: 'Digital Design Engineer',
+                team: 'Team Project',
+                problem: 'Building a pipelined processor requires careful management of instruction flow, data hazards, and control signals. The goal was to implement a basic RISC-V pipelined processor, add new instructions, and resolve hazards while ensuring correct and efficient execution.',
+                process: 'Constructed a Verilog implementation of a pipelined processor supporting R, I, U-type, lw, and sw instructions. Added branch and jump instructions while modifying the datapath and control logic. Implemented hazard resolution using write-before-read, data forwarding, and pipeline stalls. Developed Verilog testbenches and used waveform diagrams in ModelSim to simulate and debug the processor, tracing code through all pipeline stages. As a team, designed a new instruction, specifying motivation, format, addressing, datapath modifications, and control signals, and demonstrated its effect on program performance.',
+                engineering: 'Extended the datapath and control signals to incorporate new instruction types. Debugged pipeline hazards using waveform analysis. Applied testbench-driven verification to validate correct operation for instructions in all pipeline stages. Measured and compared the performance improvement of programs with the new instruction.',
+                challenges: 'Managing data hazards across multiple pipeline stages, ensuring correct forwarding and stalling logic, debugging simultaneous instruction execution, and coordinating team design decisions on instruction implementation.',
+                result: 'Successfully implemented a pipelined RISC-V processor with hazard resolution, branch/jump instructions, and a custom instruction. Demonstrated correct functionality across all pipeline stages and measurable performance improvement for targeted programs.',
+                learned: 'Gained hands-on experience with pipelined processor design, hazard resolution strategies, instruction set extension, Verilog debugging, waveform analysis, and collaborative digital system design.'
+            },
+
+
+        };
+
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const projectId = card.getAttribute('data-project');
+                openModal(projectId);
+            });
+        });
+
+        function openModal(projectId) {
+            const project = projectData[projectId];
+            if (!project) return;
+
+            document.getElementById('modalTitle').textContent = project.title;
+            document.getElementById('modalSubtitle').textContent = project.subtitle;
+            
+            const modalBody = document.getElementById('modalBody');
+            modalBody.innerHTML = `
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <strong>Skills Used</strong>
+                        <p>${project.skills}</p>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Role</strong>
+                        <p>${project.role}</p>
+                    </div>
+                    <div class="meta-item">
+                        <strong>Team</strong>
+                        <p>${project.team}</p>
+                    </div>
+                </div>
+
+                <div class="section">
+                    <h3>The Challenge</h3>
+                    <p>${project.problem}</p>
+                </div>
+
+                <div class="section">
+                    <h3>Design Process</h3>
+                    <p>${project.process}</p>
+                </div>
+
+                <div class="section">
+                    <h3>Engineering Details</h3>
+                    <p>${project.engineering}</p>
+                </div>
+
+                <div class="section">
+                    <h3>Challenges & Solutions</h3>
+                    <p>${project.challenges}</p>
+                </div>
+
+                <div class="section">
+                    <h3>Results</h3>
+                    <p>${project.result}</p>
+                </div>
+
+                <div class="section">
+                    <h3>Key Takeaways</h3>
+                    <p>${project.learned}</p>
+                </div>
+            `;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Tab Navigation
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabName = btn.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and contents
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                btn.classList.add('active');
+                document.getElementById(tabName + '-tab').classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
